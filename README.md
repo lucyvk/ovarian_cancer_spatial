@@ -32,6 +32,9 @@ This repository hosts the data and analysis for the paper "The spatial structure
 9_prediction_sensitivity_tests.R
 - Performs hyperparameter selection using 5-fold cross validation for all 15 models and saves results
 
+10_clustering_analysis.ipynb
+- Jupyter Notebook that performs KMeans clustering of samples
+
 **Helper Files:**
 
 spatial_net_helper.py
