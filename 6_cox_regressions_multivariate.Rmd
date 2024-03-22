@@ -1,0 +1,126 @@
+---
+title: "MVA for MIBI paper"
+author: "Junxiao Hu"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+# Load data into global environment. 
+library(finalfit)
+library(knitr)
+library(mice)
+library(dplyr)
+library(survival)
+library(survminer)
+
+#library(ggplot2)
+# Note some of the cell type names are different in this data file 
+load("multivariate_dat.RData")
+```
+
+## Table 1 Demographic and Clinical attributes with missingness
+
+```{r tsa, echo=FALSE, message=FALSE,warning=FALSE,results="asis"}
+#dependent <- names(dat[19])
+explanatory = clinvars
+dat %>%
+  summary_factorlist(explanatory=explanatory, cont = "median", na_include=TRUE, cont_cut=6,
+                     na_to_prop = TRUE,
+                     #total_col = T,
+                     add_row_total = TRUE) -> t1
+names(t1)[1] <- "Variables"
+print(kable(t1, row.names=FALSE,
+            align=c("l", "l", "r", "r", "r", "r", "r"),
+            caption="Table 1a. Demographic and Clinical attributes with missingness"))
+```
+
+## MVA for OS
+
+Cox proportional hazard model were used to evaluate the effect of the top 5 significant markers to the overall survival while adjusting for important demographic and clinical attributes age, BRCA mutation, H3K14Ace, ATF6, DUSP1, and CBX2. Since none of the demographic and clinical attributes were significant covariates to OS in univariable analysis. A reduced model with only the top 5 significant markers were also evaluated. The adjusted hazard ratio with the corresponding 2-sided 95% confidence interval were reported. The significant markers were centered and scaled. Patients with missing information were excluded from the analysis. The HR plot were generated for the full and reduced model.
+
+
+
+```{r os, echo=FALSE, message=FALSE,warning=FALSE,results="asis", fig.dim=c(16,12)}
+
+dependent = "Surv(time.OS, status.OS)"
+explanatory = c(clinvars, OSvars[1:5])
+explanatory_reduced = OSvars[1:5]
+
+dat %>% 
+    summary_factorlist(dependent, explanatory, fit_id=TRUE, column = TRUE) %>% 
+   ff_merge(
+        coxphuni(dat, dependent, explanatory) %>%
+            fit2df(estimate_suffix=" (univariable)")
+    ) %>% 
+  ff_merge(
+        coxphmulti(dat, dependent, explanatory) %>%
+            fit2df(estimate_suffix=" (multivariable)")
+    ) %>% 
+  ff_merge(
+        coxphmulti(dat, dependent, explanatory_reduced) %>%
+            fit2df(estimate_suffix=" (multivariable reduced)")
+    ) %>%
+    rename("OS" = label) %>% 
+    rename(" " = levels) %>% 
+    rename(`n (%)` = all) -> ts
+ts <- ts[,-c(1,5)]
+ts$`OS` <- gsub("plus","+",ts$`OS`, fixed=TRUE)
+ts$`OS` <- gsub("minus","-",ts$`OS`, fixed=TRUE)
+# Update some cell type names before saving
+ts$`OS` <- gsub("Blood_vessel","vascular_endothelial_cell",ts$`OS`, fixed=TRUE)
+ts$`OS` <- gsub("Lymphatic_vessel","Lymphatic_endothelial_cell",ts$`OS`, fixed=TRUE)
+ts$`OS` <- gsub("CD3T","NK/NKT_cell",ts$`OS`, fixed=TRUE)
+ts$`OS` <- gsub("CD11c+Keratin+","CD11c+_epithelial",ts$`OS`, fixed=TRUE)
+ts$`OS` <- gsub("CD11b+Keratin-","CD11b_low Neutrophils",ts$`OS`, fixed=TRUE)
+write.csv(ts,"Figure_5/cox_reg_survival_multivariate.csv")
+print(kable(ts, row.names=FALSE,
+            align=c("l", "l", "r", "r", "r", "r", "r"),
+            caption="Table 2. MVA results for OS with top 5 markers, full and reduced model"))
+```
+
+
+## MVA for TTR
+
+Cause specific analysis with cox proportional hazard model were used to evaluate the effect of the top 5 significant markers to the Time to Recurrence (TTR) while adjusting important demographic and clinical attributes age, BRCA mutation, H3K14Ace, ATF6, DUSP1, and CBX2. Death without experience the recurrence were censored. The adjusted hazard ratio with the corresponding 2-sided 95% confidence interval were reported. The significant markers were centered and scaled. Patients with missing information were excluded from the analysis.
+
+```{r ttr, echo=FALSE, message=FALSE,warning=FALSE,results="asis", fig.dim=c(16,12)}
+
+dependent = "Surv(time.TTR, status.TTR)"
+explanatory = c(clinvars, TTRvars[1:5])
+explanatory_reduced = TTRvars[1:5]
+
+dat %>% 
+    summary_factorlist(dependent, explanatory, fit_id=TRUE, column = TRUE) %>% 
+   ff_merge(
+        coxphuni(dat, dependent, explanatory) %>%
+            fit2df(estimate_suffix=" (univariable)")
+    ) %>% 
+  ff_merge(
+        coxphmulti(dat, dependent, explanatory) %>%
+            fit2df(estimate_suffix=" (multivariable)")
+    ) %>% 
+  ff_merge(
+        coxphmulti(dat, dependent, explanatory_reduced) %>%
+            fit2df(estimate_suffix=" (multivariable reduced)")
+    ) %>%
+    rename("PFS" = label) %>% 
+    rename(" " = levels) %>% 
+    rename(`n (%)` = all) -> ts
+ts <- ts[,-c(1,5)]
+ts$`PFS` <- gsub("plus","+",ts$`PFS`, fixed=TRUE)
+ts$`PFS` <- gsub("minus","-",ts$`PFS`, fixed=TRUE)
+# Update some cell type names before saving
+ts$`PFS` <- gsub("Blood_vessel","vascular_endothelial_cell",ts$`PFS`, fixed=TRUE)
+ts$`PFS` <- gsub("CD56+Keratin+","Neuroepithelial",ts$`PFS`, fixed=TRUE)
+ts$`PFS` <- gsub("CD11b+Keratin+","CD11b+_epithelial",ts$`PFS`, fixed=TRUE)
+write.csv(ts,"Figure_5/cox_reg_recurrence_multivariate.csv")
+
+ts$`PFS` <- gsub("_"," ",ts$`PFS`, fixed=TRUE)
+print(kable(ts, row.names=FALSE,
+            align=c("l", "l", "r", "r", "r", "r", "r"),
+            caption="Table 3. MVA results for TTR with top 5 markers, full and reduced model"))
+
+```

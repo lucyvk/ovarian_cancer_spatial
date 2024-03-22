@@ -1,0 +1,24 @@
+Average percentage Tumor : 50.831782671088796, min perc: 1.0144927536231882, max_perc: 91.56991418475518 
+Average percentage Unidentified : 14.365417423539062, min perc: 0.4589261128958238, max_perc: 60.66398390342053 
+Average percentage Neuroepithelial cells : 6.63787193996745, min perc: 0, max_perc: 61.499305876908835 
+Average percentage Fibroblast : 3.3171764853643464, min perc: 0, max_perc: 31.310861423220977 
+Average percentage CD4+ T cells : 2.813533675940122, min perc: 0, max_perc: 26.28843655262018 
+Average percentage CD8+ T cells : 2.8440749386700923, min perc: 0, max_perc: 21.620171673819744 
+Average percentage Vascular endothelial cells : 2.8595869103849396, min perc: 0, max_perc: 25.666666666666664 
+Average percentage HLADR+ : 2.1813385294567986, min perc: 0, max_perc: 37.06020328381548 
+Average percentage M1 macrophages : 1.9462492530777247, min perc: 0, max_perc: 15.987124463519315 
+Average percentage CD163+ cells : 2.04479482514415, min perc: 0, max_perc: 22.83582089552239 
+Average percentage CD56+CD45- : 1.5229979576229673, min perc: 0, max_perc: 31.682284694332886 
+Average percentage CD11b+ epithelial : 1.4910202779570472, min perc: 0, max_perc: 36.61347517730496 
+Average percentage CD11c+ epithelial : 1.0715536915090846, min perc: 0, max_perc: 4.981163666806196 
+Average percentage CD11b_low Neutrophils : 1.0315749245148338, min perc: 0, max_perc: 10.391566265060241 
+Average percentage B cells : 0.7018311838773539, min perc: 0, max_perc: 14.265198659645764 
+Average percentage Monocytes : 0.6696160896489022, min perc: 0, max_perc: 8.261802575107296 
+Average percentage Neutrophils : 1.0963107108024708, min perc: 0, max_perc: 35.35620052770449 
+Average percentage Lymphatic endothelial cells : 0.6581841528000683, min perc: 0, max_perc: 18.169209431345354 
+Average percentage Other immune : 0.564194314265228, min perc: 0, max_perc: 4.057971014492753 
+Average percentage Non-leukocyte derived neural cells : 0.33417911102357095, min perc: 0, max_perc: 7.050423917893797 
+Average percentage NK/NKT : 0.31781148394923886, min perc: 0, max_perc: 2.2498803255146003 
+Average percentage M2 macrophages : 0.3015343388456247, min perc: 0, max_perc: 5.88235294117647 
+Average percentage Dendritic cells : 0.20572553329501703, min perc: 0, max_perc: 3.362944162436548 
+Average percentage CD11c_low immune : 0.19163957725512, min perc: 0, max_perc: 2.7777777777777777 

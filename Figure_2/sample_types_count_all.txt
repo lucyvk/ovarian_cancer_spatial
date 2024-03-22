@@ -1,0 +1,24 @@
+type: Unidentified, sample count: 83
+type: CD163+ cells, sample count: 82
+type: Vascular endothelial cells, sample count: 81
+type: M1 macrophages, sample count: 81
+type: Fibroblast, sample count: 80
+type: Tumor, sample count: 80
+type: CD4+ T cells, sample count: 77
+type: CD8+ T cells, sample count: 76
+type: CD11b_low Neutrophils, sample count: 76
+type: CD11c+ epithelial, sample count: 73
+type: Other immune, sample count: 67
+type: Monocytes, sample count: 66
+type: B cells, sample count: 65
+type: NK/NKT, sample count: 61
+type: Neutrophils, sample count: 60
+type: CD11b+ epithelial, sample count: 59
+type: HLADR+, sample count: 54
+type: Neuroepithelial cells, sample count: 53
+type: CD11c_low immune, sample count: 47
+type: CD56+CD45-, sample count: 46
+type: Non-leukocyte derived neural cells, sample count: 37
+type: M2 macrophages, sample count: 36
+type: Lymphatic endothelial cells, sample count: 34
+type: Dendritic cells, sample count: 31
