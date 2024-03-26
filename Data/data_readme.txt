@@ -1,6 +1,6 @@
 tma_info.csv - outcome information and clinical/immunohistochemical attributes linked to unique tma ids
 
-cell_table.csv - expression levels across identified cells used for cell phenotyping 
+cell_table.csv - expression levels across identified cells used for cell phenotyping (see cell_table_README for column definitions)
 
 Tables used in regression and prediction analysis with generated features:
 mibi_table_main.csv - for main text results
